@@ -27,7 +27,7 @@ public class AStarPlanner implements Planner  {
         this.goals = goals;
         this.heuristic = heuristic;
         this.cpt =0;
-        this.ok = false;
+        //this.ok = false;
         //this.countNeoud(this.ok) ? this.cpt : 0;
     }
 
@@ -69,6 +69,7 @@ public class AStarPlanner implements Planner  {
         distance.put(this.initialState,0f);
         open.add(this.initialState);
         value.put(this.initialState, heuristic.estimate(this.initialState));
+
 
         while (!open.isEmpty()) {
             this.cpt+=1;
