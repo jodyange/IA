@@ -17,6 +17,8 @@ public class BFSPlanner implements Planner{
     private Map<Variable, Object> initialState;
     private Set<Action> actions;
     private Goal goals;
+    private int nbNoeuds = 0;
+    private boolean activateNodeC = false;
 
     public BFSPlanner(Map<Variable, Object> initialState, Set<Action> actions, Goal goals) {
         this.initialState = initialState;
@@ -40,6 +42,17 @@ public class BFSPlanner implements Planner{
         return goals;
     }
 
+    public int getNbNoeuds() {
+        return nbNoeuds;
+    }
+
+    @Override
+    public void activateNodeCount(boolean activate) {
+        this.activateNodeC = activate;
+    }
+
+
+
     @Override
     public List<Action> plan() {
         Map<Map<Variable, Object>,Map<Variable, Object>> father = new HashMap<>();
@@ -50,6 +63,7 @@ public class BFSPlanner implements Planner{
         father.put(this.initialState, null);
 
         if(this.goals.isSatisfiedBy(initialState)){
+            if(this.activateNodeC) nbNoeuds = 1;
             return new ArrayList<Action>();
 
         }

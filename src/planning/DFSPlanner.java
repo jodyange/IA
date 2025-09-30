@@ -8,6 +8,8 @@ public class DFSPlanner implements Planner{
     private Map<Variable, Object> initialState;
     private Set<Action> actions;
     private Goal goals;
+    private int nbNoeuds = 0;
+    private boolean activateNodeC = false;
 
     public DFSPlanner(Map<Variable, Object> initialState, Set<Action> actions, Goal goals) {
         this.initialState = initialState;
@@ -31,6 +33,19 @@ public class DFSPlanner implements Planner{
         return goals;
     }
 
+    public int getNbNoeuds() {
+        return nbNoeuds;
+    }
+
+    @Override
+    public void activateNodeCount(boolean activate) {
+        this.activateNodeC = activate;
+    }
+
+
+
+
+
     @Override
     public Stack<Action> plan() {
         return DFS(this,this.initialState,new Stack<Action>(),new HashSet<Map<Variable,Object>>());
@@ -40,6 +55,7 @@ public class DFSPlanner implements Planner{
         closed.add(state);
         //tester le but 
         if(problem.getGoal().isSatisfiedBy(state)){
+            if(this.activateNodeC) this.nbNoeuds = closed.size();
             return plan;        //on retourne le plan si on a atteint un but
         }else{
             for(Action act : this.actions){

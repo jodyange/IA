@@ -76,13 +76,13 @@ public class Demo1 {
         System.out.println("Résultat de la recherche avec DSF PLANNER");
         DFSPlanner dfsPlanner = new DFSPlanner(init, actions, goal);
         Stack<Action> plan = dfsPlanner.plan();        //Planifier
-
+        dfsPlanner.activateNodeCount(true);
         // Afficher le plan
         if (plan == null) {
             System.out.println("Aucun plan a été trouver.");
             
         } else {
-            System.out.println("Plan trouvé :" + plan.size() + "étapes :");
+            System.out.println("Plan trouvé :" + plan.size() + " étapes :");
             for (Action action : plan) {
                 System.out.println(action);
             }
@@ -91,7 +91,7 @@ public class Demo1 {
         System.out.println("Résultat de la recherche avec BSF PLANNER");
         BFSPlanner bfsPlanner = new BFSPlanner(init, actions, goal);
         List<Action> plan1 = bfsPlanner.plan();        //Planifier
-
+        bfsPlanner.activateNodeCount(true);
         // Afficher le plan
         if (plan1 == null) {
             System.out.println("Aucun plan a été trouver.");
@@ -103,6 +103,23 @@ public class Demo1 {
             }
         }
 
+
+        System.out.println("Résultat de la recherche avec Dijkstra PLANNER");
+        DijkstraPlanner dijkstra = new DijkstraPlanner(init, actions, goal);
+        List<Action> plan2 = dijkstra.plan();             //Planifier
+        dijkstra.activateNodeCount(true);
+        // Afficher le plan
+        if (plan2 == null) {
+            System.out.println("Aucun plan a été trouver.");
+            
+        } else {
+            System.out.println("Plan trouvé :" + plan2.size() + " étapes :");
+            for (Action action : plan2) {
+                System.out.println(action);
+            }
+        }
+
+        
 
 
 

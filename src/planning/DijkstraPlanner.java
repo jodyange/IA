@@ -19,6 +19,8 @@ public class DijkstraPlanner implements Planner {
     private Map<Variable, Object> initialState;
     private Set<Action> actions;
     private Goal goals;
+    private int nbNoeuds = 0;
+    private boolean activateNodeC = false;
 
     public DijkstraPlanner(Map<Variable, Object> initialState, Set<Action> actions, Goal goals) {
         this.initialState = initialState;
@@ -43,6 +45,16 @@ public class DijkstraPlanner implements Planner {
     public Goal getGoal() {
         return goals;
     }
+
+    
+    public int getNbNoeuds() {
+        return nbNoeuds;
+    }
+
+    @Override
+    public void activateNodeCount(boolean activate) {
+        this.activateNodeC = activate;
+    }
     
     
     @Override
@@ -63,6 +75,7 @@ public class DijkstraPlanner implements Planner {
 
         while (!open.isEmpty()) {
             Map<Variable, Object> instantiation = open.poll();
+            if (this.activateNodeC) this.nbNoeuds++;
             if(this.goals.isSatisfiedBy(instantiation)){
                 goals.add(instantiation);
                 //System.out.println("test goals:" + goals);

@@ -16,8 +16,8 @@ public class AStarPlanner implements Planner  {
     private Set<Action> actions;
     private Goal goals;
     private Heuristic heuristic;
-    private int cpt;
-    private boolean ok;
+    private int nbNoeuds = 0;
+    private boolean activateNodeC = false;
 
 
     
@@ -26,15 +26,10 @@ public class AStarPlanner implements Planner  {
         this.actions = actions;
         this.goals = goals;
         this.heuristic = heuristic;
-        this.cpt =0;
-        //this.ok = false;
-        //this.countNeoud(this.ok) ? this.cpt : 0;
+        
     }
 
-    public boolean countNeoud(boolean active){
-        if(active) this.cpt++;
-        return false;
-    }
+    
 
       @Override
     public Map<Variable, Object> getInitialState() {
@@ -49,6 +44,15 @@ public class AStarPlanner implements Planner  {
     @Override
     public Goal getGoal() {
         return goals;
+    }
+
+    public int getNbNoeuds() {
+        return nbNoeuds;
+    }
+
+    @Override
+    public void activateNodeCount(boolean activate) {
+        this.activateNodeC = activate;
     }
 
 
@@ -72,9 +76,11 @@ public class AStarPlanner implements Planner  {
 
 
         while (!open.isEmpty()) {
-            this.cpt+=1;
+            this.nbNoeuds+=1;
             Map<Variable, Object> instantiation = open.poll();
             if(this.goals.isSatisfiedBy(instantiation)){
+                if (this.activateNodeC)
+                    System.out.println("le nombre de noeuds explorés : " + nbNoeuds);
                 goals.add(instantiation);
                 return BFSPlanner.getBfsPlan(father, plan, instantiation);
             }

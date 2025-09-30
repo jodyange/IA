@@ -31,7 +31,7 @@ public class Demo {
         e1.put(x,3);
         e1.put(y,3);
 
-        BasicAction act1 = new BasicAction(p1, e1, 1);
+        BasicAction act1 = new BasicAction(p1, e1, 1 );
         Map<Variable, Object> s = new HashMap<>(); //état courant
         s.put(x,1);
         s.put(y, 2);
