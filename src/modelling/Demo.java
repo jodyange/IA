@@ -45,17 +45,17 @@ public class Demo {
         System.out.println("b1 est un BooleanVariable qui a pour nom \"" + b1.getName() + "\" et son domaine est = " + b1.getDomain());
         System.out.println("\n");
         
-        System.out.println("🔍Test de la méthode equals()");
+        System.out.println("Test de la méthode equals()");
         if(v1.equals(b1)){
-            System.out.println("v1 et b1 sont égales ✅");
+            System.out.println("v1 et b1 sont égales ");
         }else{
-            System.out.println("v1 et b1 ne sont pas égales ❌");
+            System.out.println("v1 et b1 ne sont pas égales ");
         }
 
         if(v1.equals(v2)){
-            System.out.println("v1 et v2 sont égales ✅");
+            System.out.println("v1 et v2 sont égales ");
         }else{
-            System.out.println("v1 et v2 ne sont pas égales ❌");
+            System.out.println("v1 et v2 ne sont pas égales ");
         }
         System.out.println("\n");
 
@@ -64,10 +64,10 @@ public class Demo {
         Map<Variable, Object> inst1 = Map.of(v1, 1, v2, 2);
         boolean res = df.isSatisfiedBy(inst1);
         if (res == true){
-            System.out.println("Contrainte Difference (v1 ≠ v2) satisfaite ✅ "+ res);   
+            System.out.println("Contrainte Difference (v1 ≠ v2) satisfaite "+ res);   
 
         } else{
-            System.out.println("Contrainte Difference (v1 = v2) satisfaite ❌ "+ res);
+            System.out.println("Contrainte Difference (v1 = v2) satisfaite "+ res);
 
         }
         System.out.println("\n");
@@ -79,10 +79,10 @@ public class Demo {
         Implication implication1 = new Implication(v1, s1, v2, s2);
         Implication implication2 = new Implication(v1, s1, v2, s3);
 
-        System.out.println("implication1 représente la contrainte d'implication entre (v1) ∈ " + s1 + " →  (v2) ∈ " + s2);
+        System.out.println("implication1 représente la contrainte d'implication entre (v1) ∈ " + s1 + " ->  (v2) ∈ " + s2);
         System.out.println("Vérification de implication1 : " + (implication1.isSatisfiedBy(instanciation) ? "Satisfaite " : "Non satisfaite "));
         System.out.println("\n");
-        System.out.println("Implication2 représente la contrainte d'implication entre (v1) ∈ " + s1 + " →  (v2) ∈ " + s3);
+        System.out.println("Implication2 représente la contrainte d'implication entre (v1) ∈ " + s1 + " ->  (v2) ∈ " + s3);
         System.out.println("Vérification de implication2 : " + (implication2.isSatisfiedBy(instanciation2) ? "Satisfaite " : "Non satisfaite "));
         System.out.println("\n");
 
@@ -94,34 +94,6 @@ public class Demo {
         System.out.println("Vérification de unaryConstranit v3=2 : " + unaryConstraint.isSatisfiedBy(inst2)); // true
         
         
-        /*boolean res1 = implication1.isStisfiedBy(instanciation);
-        if (res1 == true){
-            System.out.println("Implication1 (v1 -> v2) satisfaite ✅ "+ res1);   
-
-        } else{
-            System.out.println("Implication1 (v1 -> v2) non satisfaite ❌ "+ res1);
-
-        }
-        System.out.println("\n");
-
-        System.out.println("implication1 représente la contrainte d'implication entre (v1)->" + s1 + " et (v2)->" + s3);
-        boolean res2 = implication2.isStisfiedBy(instanciation2);
-        if (res2 == true){
-            System.out.println("Implication1 (v1 -> v2) satisfaite ✅ "+ res2);   
-
-        } else{
-            System.out.println("Implication1 (v1 -> v2) non satisfaite ❌ "+ res2);
-
-        }*/
-        
-
-
-       
-        
-        
-        
-
-
         
         
 

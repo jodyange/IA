@@ -8,8 +8,9 @@ public class DFSPlanner implements Planner{
     private Map<Variable, Object> initialState;
     private Set<Action> actions;
     private Goal goals;
-    private int nbNoeuds = 0;
     private boolean activateNodeC = false;
+    private int nbNoeuds = 0;
+    
 
     public DFSPlanner(Map<Variable, Object> initialState, Set<Action> actions, Goal goals) {
         this.initialState = initialState;
@@ -59,26 +60,31 @@ public class DFSPlanner implements Planner{
             return plan;        //on retourne le plan si on a atteint un but
         }else{
             for(Action act : this.actions){
-            if(act.isApplicable(state)){
-                Map<Variable, Object> next = act.successor(state);
-                if(!closed.contains(next)){
-                    plan.add(act);   //ajouter le plan
-                    closed.add(next);
-                    Stack<Action> subPlan = DFS(this, next, plan, closed);
-                    if(subPlan != null){
-                        return subPlan;        //solution trouvée
-                    }
-                    plan.pop();
+                if(act.isApplicable(state)){
+                    Map<Variable, Object> next = act.successor(state);
+                    if(!closed.contains(next)){
+                        plan.add(act);   //ajouter le plan
+                        //closed.add(next);
+                        Stack<Action> subPlan = DFS(this, next, plan, closed);
+                        if(subPlan != null){
+                            return subPlan;        //solution trouvée
+                        }else{
+                            plan.pop();
+                        }
+                        
 
+                    }
                 }
             }
-        }
-        return null;
+            return null;
 
         }
         
 
     }
+
+
+
 
 
     

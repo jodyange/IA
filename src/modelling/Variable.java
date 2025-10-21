@@ -26,20 +26,6 @@ public class Variable {
     public boolean equals(Object obj) {
         Variable v = (Variable) obj;
         return name.equals(v.getName());
-
-        /*if (this == obj) {
-            return true;
-            
-        }
-        if(obj == null) return false;
-        if(obj.getClass() != nom.getClass()){
-            return false;
-        } 
-        Variable other = (Variable) obj;
-        if(this.nom != null){
-            return true;
-        }
-        return this.nom.equals(other.nom);*/
         
        
     }

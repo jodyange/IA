@@ -63,13 +63,13 @@ public class BasicAction implements Action {
         for (Map.Entry<Variable,Object> entry : this.precondition.entrySet()) {
             s += entry.getKey().getName()+ " = " + entry.getValue()+" ";
         }
-        s+="}\n\n";
+        s+="}\n";
 
         s +="Effet {";
         for (Map.Entry<Variable,Object> entry : this.effect.entrySet()) {
             s += entry.getKey().getName()+ " = " + entry.getValue()+" ";
         }
-        s+="}\n\n";
+        s+="}\n";
 
         s +="Coût {" + cost + "}\n";
         return s;

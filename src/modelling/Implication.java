@@ -22,14 +22,6 @@ public class Implication implements Constraint {
         }   
     }
 
-    /*private boolean includeRelation(Set<Object> domain, Set<Object> subDomain){
-        for (Object object : subDomain) {
-            if(!domain.contains(object)){
-                return false;
-            }
-        }
-        return true;
-    }*/
 
     @Override
     public Set<Variable> getScope() {
