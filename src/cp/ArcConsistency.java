@@ -122,7 +122,7 @@ public class ArcConsistency {
                 }
             }
         }
-        while(change = true);
+        while(change == true);
         for(Variable v : domaines.keySet()){
             if(domaines.get(v).isEmpty()){
                 return false;

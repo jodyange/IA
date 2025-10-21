@@ -1,5 +1,7 @@
 package cp;
 
+// import java.util.HashMap;
+// import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,12 +17,6 @@ public class Demo {
           Variable v1 = new Variable("x", Set.of(1, 2, 3));
           Variable v2 = new Variable("y", Set.of(1, 2, 3));
           Variable v3 = new Variable("z", Set.of(1, 2, 3));
-          //Variable v4 = new Variable("n4", Set.of('A','B','C','D'));
-          System.out.println("Les Listes des variables crées");
-          System.out.println("v1 a pour nom " + v1.getName() + " et pour domaine " + v1.getDomain());
-          System.out.println("v2 a pour nom " + v2.getName() + " et pour domaine " + v2.getDomain());
-          System.out.println("v3 a pour nom " + v3.getName() + " et pour domaine " + v3.getDomain());
-          System.out.println("\n");
           Set<Variable> variables = Set.of(v1,v2,v3);
 
           Constraint c1 = new DifferenceConstraint(v1, v2);
@@ -41,6 +37,16 @@ public class Demo {
           }else{
                System.out.println("Aucune solution trouvée !");
           }
+
+          // Constraint df = new DifferenceConstraint(v1, v2);
+          // Set<Constraint> constraints1 = Set.of(df);
+          // constraints1.add(df);
+
+          // ArcConsistency ac = new ArcConsistency(constraints1);
+          // Map<Variable,Set<Object>> domains = new HashMap<>();
+          // domains.put(v1, new HashSet<>(Set.of(1,2,3)));
+          // domains.put(v2, new HashSet<>(Set.of(1,2)));
+          // System.out.println(ac.ac1(domains));
           
 
      }
