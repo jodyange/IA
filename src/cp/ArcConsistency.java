@@ -8,10 +8,21 @@ import java.util.Set;
 import modelling.Constraint;
 import modelling.Variable;
 
+/**
+ * Cette classe implémente l'algorithme de AC-1, utilisé pour maintenir la consistance locale
+ */
 public class ArcConsistency {
 
     private Set<Constraint> constraints;
 
+    /**
+     * Constructeur de ArcConsistency 
+     * initialise l'ensemble des contraintes et vérifie que toutes les contraintes 
+     * sont soit unary soit binary
+     * 
+     * @param constraints L'ensemble des contraintes
+     * @throws IllegalArgumentException Si une contrainte n'est ni unaire ni binaire.
+     */
     public ArcConsistency(Set<Constraint> constraints) {
         //Vérifie que toutes les contraintes sont unaires ou binaires
         for (Constraint c : constraints) {
@@ -22,11 +33,19 @@ public class ArcConsistency {
         this.constraints = constraints;
     }
 
-
+    /**
+     * Applique la consistance de nœud sur les domaines des variables, 
+     * supprime les valeurs avec size() de domain != 1 (unaire)
+     * Retourne false si un domaine devient vide.
+     * 
+     * @param domains Les domaines des variables.
+     * @return true si tous les domaines sont cohérents, false si un domaine devient vide.
+     */
     public boolean enforceNodeConsistency(Map<Variable, Set<Object>> domains){
         for (Map.Entry<Variable, Set<Object>> entry : domains.entrySet()) {
             Variable variable = entry.getKey();
             Set<Object> domain = entry.getValue();
+            //copyDomain, toRemove
             Set<Object> copyDomain = new HashSet<>(domain);
             for (Object valeur : domain) {
                 Map<Variable, Object> instanciation = new HashMap<>();
@@ -59,7 +78,16 @@ public class ArcConsistency {
 
     }
 
-
+    /**
+     * Révise les domaines des variables v1 et v2 pour s'assurer que chaque valeur de v1
+     * a au moins une valeur correspondante dans v2, selon les contraintes entre les deux variables.
+     * 
+     * @param v1 La première variable à réviser
+     * @param D1 Le domaine de v1
+     * @param v2 La deuxième variable à réviser
+     * @param D2 Le domaine de v2
+     * @return true si des valeurs ont été supprimées du domaine de v1, sinon false.
+     */
     public boolean revise(Variable v1, Set<Object> D1, Variable v2, Set<Object> D2){
         boolean delete = false;
 
@@ -104,6 +132,13 @@ public class ArcConsistency {
         return delete;
     }
 
+    /**
+     * Applique l'algorithme de consistance d'arc AC-1 sur les domaines des variables. Révise les arcs
+     * jusqu'à ce qu'aucun changement ne soit effectué, donc on est sur de la consistance d'arc.
+     * 
+     * @param domains Les domaines des variables à vérifier.
+     * @return true si les domaines sont cohérents, false si un domaine devient vide.
+     */
     public boolean ac1(Map<Variable, Set<Object>> domaines){
         if(!enforceNodeConsistency(domaines)){
             return false;
@@ -131,10 +166,5 @@ public class ArcConsistency {
         return true;
 
     }
-
-
-
-
-    
     
 }

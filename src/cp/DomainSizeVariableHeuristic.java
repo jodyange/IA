@@ -1,47 +1,85 @@
 package cp;
 
-import java.util.Map;
-import java.util.Set;
-
 import modelling.Variable;
+import modelling.Constraint;
+import java.util.*;
 
-public class DomainSizeVariableHeuristic implements VariableHeuristic {
+/**
+ * Implémentation de l'heuristique de sélection des variables sur la taille de son domaine.
+ */
+public class DomainSizeVariableHeuristic implements VariableHeuristic{
+    
+    private boolean preferredDomainSize;
 
-    private boolean preferDomain;
-
-    public DomainSizeVariableHeuristic(boolean preferDomain) {
-        this.preferDomain = preferDomain;
+    /**
+     * Constructeur de l'heuristique DomainSizeVariableHeuristic.
+     * 
+     * @param preferredDomainSize Si vrai, l'heuristique privilégie la variable ayant le plus grand domaine. 
+     *                            Si faux, l'heuristique privilégie la variable ayant le plus petit domaine.
+     */
+    public DomainSizeVariableHeuristic(boolean preferredDomainSize) {
+        this.preferredDomainSize = preferredDomainSize;
     }
 
+    /**
+     * Sélectionne la meilleure variable parmi l'ensemble des variables, en fonction de la taille de son domaine
+     * 
+     * @param variables L'ensemble des variables disponibles
+     * @param domaines Une Map associant chaque variable à son domaine 
+     * @return La variable sélectionnée en fonction de l'heuristique du nombre de contraintes.
+     */
     @Override
     public Variable best(Set<Variable> variables, Map<Variable, Set<Object>> domaines) {
+       
 
-        if (domaines == null || domaines.size() == 0) {
-            return null;
-        }
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        Variable maxVariable = null;
-        Variable minVariable = null;
+         Map<Variable,Integer> size = new HashMap<>();
 
-        for (Variable var : variables) {
-            //les variables dans variables ont toutes leur domaine dans domains
-            int domainSize = domaines.get(var).size();
-            if (domainSize > max) {
-                max = domainSize;
-                maxVariable = var;
+        for (Variable v : variables) {
+
+            if(domaines.keySet().contains(v)){
+                int tmp = domaines.get(v).size();
+
+                size.put(v, tmp);
+
+                
             }
-            if (domainSize < min) {
-                min = domainSize;
-                minVariable = var;
-            }
+            
+        }
 
+        Variable max = getMaxVariable(size);
+        Variable min = getMinVariable(size); 
+
+        if(preferredDomainSize){
+            return max;}
+
+        return min;
         }
-        if (this.preferDomain) {
-            return maxVariable;
+
+    /**
+     * Trouve la variable associée au max dde la taille de domaine
+     * 
+     * @param map Une Map associant des variables à la taille de leur domaine.
+     * @return La variable ayant le plus grand domaine.
+     */
+    public static Variable getMaxVariable(Map<Variable, Integer> map) {
+        return map.entrySet()
+            .stream()
+            .max(Map.Entry.comparingByValue())
+            .map(Map.Entry::getKey)
+            .orElse(null); 
         }
-        return minVariable;
+
+    /**
+     * Trouve la variable associée au minimum de la taille de domaine.
+     * 
+     * @param map Une Map associant des variables à la taille de leur domaine.
+     * @return La variable ayant le plus petit domaine.
+     */
+    public static Variable getMinVariable(Map<Variable, Integer> map) {
+        return map.entrySet()
+            .stream()
+            .min(Map.Entry.comparingByValue())
+            .map(Map.Entry::getKey)
+            .orElse(null); 
     }
- 
-    
 }
