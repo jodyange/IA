@@ -1,12 +1,14 @@
 package cp;
 
-import java.util.*;
-import modelling.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-/**
- * Implémentation d'un solveur utilisant l'algo Consistancet Arc
- * 
- */
+import modelling.Constraint;
+import modelling.Variable;
+
 public class HeuristicMACSolver extends AbstractSolver {
 
     private VariableHeuristic variableHeuristic;
@@ -90,4 +92,5 @@ public class HeuristicMACSolver extends AbstractSolver {
         V.add(x);
         return null;
     }
+    
 }

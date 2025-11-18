@@ -1,8 +1,9 @@
 package cp;
 
+
 import java.util.Map;
-import java.util.Set;
 import java.util.Random;
+import java.util.Set;
 
 import modelling.Constraint;
 import modelling.DifferenceConstraint;
@@ -16,12 +17,6 @@ public class Demo {
           Variable v1 = new Variable("x", Set.of(1, 2, 3));
           Variable v2 = new Variable("y", Set.of(1, 2, 3));
           Variable v3 = new Variable("z", Set.of(1, 2, 3));
-          //Variable v4 = new Variable("n4", Set.of('A','B','C','D'));
-          System.out.println("Les Listes des variables crées");
-          System.out.println("v1 a pour nom " + v1.getName() + " et pour domaine " + v1.getDomain());
-          System.out.println("v2 a pour nom " + v2.getName() + " et pour domaine " + v2.getDomain());
-          System.out.println("v3 a pour nom " + v3.getName() + " et pour domaine " + v3.getDomain());
-          System.out.println("\n");
           Set<Variable> variables = Set.of(v1,v2,v3);
 
           Constraint c1 = new DifferenceConstraint(v1, v2);
@@ -42,23 +37,25 @@ public class Demo {
           }else{
                System.out.println("Aucune solution trouvée !");
           }
-          
-          VariableHeuristic varHeuristic = new DomainSizeVariableHeuristic(true);  // true : préfère les domaines plus grands
-          ValueHeuristic valHeuristic = new RandomValueHeuristic(new Random());  // Mélange aléatoire des valeurs
 
-          // Étape 4 : Créer et résoudre avec le HeuristicMACSolver
-          HeuristicMACSolver solver2 = new HeuristicMACSolver(variables, constraints, varHeuristic, valHeuristic);
+          
+
+           // Heuristiques
+          VariableHeuristic varH = new DomainSizeVariableHeuristic(false); // plus petit domaine
+          ValueHeuristic valH = new RandomValueHeuristic(new Random());
+
+          // Solveur
+          HeuristicMACSolver solver2 = new HeuristicMACSolver(variables, constraints, varH, valH);
 
           Map<Variable, Object> solution = solver2.solve();
 
-          // Affichage de la solution
           if (solution != null) {
                System.out.println("\n --------- HEURISTIC ------- \n Solution trouvée :");
                solution.forEach((var, value) -> System.out.println(var.getName() + " = " + value));
           } else {
                System.out.println("HEURISTIC ------ \n Aucune solution trouvée.");
           }
-
+          
 
      }
      

@@ -44,5 +44,9 @@ public class DifferenceConstraint implements Constraint{
         return true;
         
     }
+    @Override
+    public String toString(){
+            return "Variable 1 : " + v1 + ", Et  Variable 2 : " + v2 + "\n";
+         }
     
 }
