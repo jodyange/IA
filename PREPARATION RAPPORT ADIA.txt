@@ -1,0 +1,14 @@
+PREPARATION RAPPORT ADIA
+
+private final Map<Integer, Variable> onVariables = new HashMap<>();
+private final Map<Integer, BooleanVariable> fixedVariables = new HashMap<>();
+private final Map<Integer, BooleanVariable> freeVariables = new HashMap<>();
+
+prq variable por onVariables mais BooleanVariables pour fixed et free varibales
+=> La réponse :
+➡️ Parce que les variables n’ont pas le même type de domaine.
+Certaines ont un domaine fini d’entiers, d’autres sont juste vraies ou fausses.
+
+compilation : $ javac -d build -cp "lib/*:." src/*/*.java
+
+Execution : $ java -cp build:lib/*:. blocksworld.BlocksWorldConstraints
