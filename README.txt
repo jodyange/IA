@@ -1,10 +1,8 @@
 Aide à la décision et intelligence artificielle
 
+AGBOHOUTO Jody-Ange 22310270
 -Groupe TP 2A
 -Chargé de TP: M BONNET Grégory
--Binôme:
-    1- ADEKOYA Boluwatife 22311964
-    2- AGBOHOUTO Jody-Ange 22310270
 
 
 

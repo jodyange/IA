@@ -12,3 +12,9 @@ Certaines ont un domaine fini d’entiers, d’autres sont juste vraies ou fauss
 compilation : $ javac -d build -cp "lib/*:." src/*/*.java
 
 Execution : $ java -cp build:lib/*:. blocksworld.BlocksWorldConstraints
+
+j'ai trouvé cela très interressant que les structures que nous avons dévélopés en TP nous aide à immplementer notre blocksworld. Personnellement j'ai été très agréablement surpris quand j'ai vu la correlation entre ce qu'on avait déja fait en Tp(comme bases) et ce qu'on devait coder pour le blocksworl, surtout pcq je me pose très souvent la question de: mais à quoi ça va servir exactement  ? et là j'ai eu une très belle réponse en faisant 1+1
+
+De façon optionnelle, on peut également s’intéresser à d’autres types de contraintes (empêchant ou non
+à elles seules les configurations circulaires). On peut par exemple considérer des configurations n’ayant
+qu’une pile, des configurations qui alternent piles vides et piles non vides, etc. => decreasing
