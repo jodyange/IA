@@ -47,10 +47,9 @@ public class Implication implements Constraint {
         }
         return true;
     }
-
+    
     @Override
         public String toString() {
             return "Variable 1 : " + v1 + ", domaine 1 : " + s1 + ", Et Variable 2 : " + v2 + ", domaine 2 : " + s2+ "\n";
         }
-    
 }

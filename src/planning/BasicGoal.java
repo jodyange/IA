@@ -29,10 +29,16 @@ public class BasicGoal implements Goal {
         return true;
     }
 
+    public Map<Variable, Object> getButs() {
+        return buts;
+    }
+
     @Override
     public String toString() {
         return "BasicGoal [buts=" + buts + "]";
     }
+
+
 
     
 

@@ -7,13 +7,30 @@ import java.util.TreeSet;
 
 import modelling.BooleanVariable;
 
+/**
+ * Extracteur brute-force des règles d'association fréquentes et précises.
+ * Énumère toutes les prémisses possibles pour chaque itemset fréquent.
+ */
 public class BruteForceAssociationRuleMiner extends AbstractAssociationRuleMiner{
 
+    /**
+     * Crée un extracteur brute-force pour la base donnée.
+     *
+     * @param database base de données utilisée
+     */
     public BruteForceAssociationRuleMiner(BooleanDatabase database){
         super(database);
 
     }
 
+    /**
+     * Extrait toutes les règles d'association satisfaisant
+     * les seuils de fréquence et de confiance.
+     *
+     * @param minFrequency fréquence minimale
+     * @param minConfidence confiance minimale
+     * @return ensemble des règles extraites
+     */
     @Override
     public Set<AssociationRule> extract(float minFrequency, float minConfiance) {
         Set<AssociationRule> rules = new HashSet<>();
@@ -42,6 +59,12 @@ public class BruteForceAssociationRuleMiner extends AbstractAssociationRuleMiner
        return rules;
     }
 
+    /**
+     * Génère tous les sous-ensembles non vides et stricts d'un ensemble d'items.
+     *
+     * @param items ensemble d'items
+     * @return ensemble des sous-ensembles candidats
+     */
     public static Set<Set<BooleanVariable>> allCandidatePremises(Set<BooleanVariable> domain){
         Set<Set<BooleanVariable>> subDomains = new HashSet<>();
 

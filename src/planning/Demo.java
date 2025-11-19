@@ -55,8 +55,8 @@ public class Demo {
 
         //Actions
         BasicAction act1 = new BasicAction(p1, e1, 1);
-        BasicAction act2 = new BasicAction(p2, e2, 1);
-        BasicAction act3 = new BasicAction(p3, e3, 1);
+        BasicAction act2 = new BasicAction(p2, e2, 5);
+        BasicAction act3 = new BasicAction(p3, e3, 50);
         Set<Action> actions = new HashSet<>();
         actions.add(act1);
         actions.add(act2);

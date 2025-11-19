@@ -25,8 +25,6 @@ public class DifferenceConstraint implements Constraint{
         
     }
 
-    
-
     @Override
     public boolean isSatisfiedBy(Map<Variable, Object> instantiation) throws IllegalArgumentException {
         Object valueV1 = instantiation.get(this.v1);
@@ -35,18 +33,14 @@ public class DifferenceConstraint implements Constraint{
 
         if(valueV1 == null || valueV2 == null){
             throw new IllegalArgumentException("Unimplemented method 'isNotStisfiedBy'");
-
         }
 
         if(valueV1.equals(valueV2)){
             return false;
         }
         return true;
-        
     }
-    @Override
     public String toString(){
             return "Variable 1 : " + v1 + ", Et  Variable 2 : " + v2 + "\n";
          }
-    
 }

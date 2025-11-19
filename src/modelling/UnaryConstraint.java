@@ -37,7 +37,11 @@ public class UnaryConstraint implements Constraint{
             return true;
         }
         return false;
+    }
 
+    @Override
+    public String toString() {
+        return "V : " + v + ", S : " + s+ "\n";
     }
     
 }

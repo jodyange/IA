@@ -67,12 +67,9 @@ public class BlocksWorldConstraints extends BlocksWorldVariables {
 
                 Set<Object> onValues = new HashSet<>();
                 onValues.add(bPrime);
-
                 Set<Object> fixedValues = new HashSet<>();
                 fixedValues.add(true);
-
-                constraints.add(
-                    new Implication(onB, onValues, fixedVariables.get(bPrime), fixedValues)
+                constraints.add(new Implication(onB, onValues, fixedVariables.get(bPrime), fixedValues)
                 );
             }
         }
@@ -95,8 +92,7 @@ public class BlocksWorldConstraints extends BlocksWorldVariables {
                 Set<Object> freeValues = new HashSet<>();
                 freeValues.add(false);
 
-                constraints.add(
-                    new Implication(onB, onValues, freeVariables.get(p), freeValues)
+                constraints.add(new Implication(onB, onValues, freeVariables.get(p), freeValues)
                 );
             }
         }
@@ -125,8 +121,8 @@ public class BlocksWorldConstraints extends BlocksWorldVariables {
 
     }
 
-    public static void main(String[] args) {
-        BlocksWorldConstraints myWorld = new BlocksWorldConstraints(3, 3);
-        System.out.println(myWorld);
-    }
+    // public static void main(String[] args) {
+    //     BlocksWorldVariables myWorld = new BlocksWorldConstraints(3, 3);
+    //     System.out.println(myWorld);
+    // }
 }

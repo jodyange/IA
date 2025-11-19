@@ -25,13 +25,9 @@ public class Variable {
     @Override
     public boolean equals(Object obj) {
         Variable v = (Variable) obj;
-        return name.equals(v.getName());
-        
-       
+        return name.equals(v.getName());   
     }
     
-    
-
     public String getName() {
         return name;
     }
@@ -50,13 +46,6 @@ public class Variable {
 
     @Override
     public String toString() {
-        return this.name + "{" +this.domain + "}";
+        return this.name + ": {" +this.domain + "}";
     }
-
-    
-
-
-
-    
-    
 }

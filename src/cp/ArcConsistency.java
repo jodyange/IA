@@ -8,10 +8,24 @@ import java.util.Set;
 import modelling.Constraint;
 import modelling.Variable;
 
+/**
+ * Implémentation de la cohérence de nœud et de la cohérence d'arc
+ * pour des contraintes unaires et binaires.
+ * <p>
+ * Cette classe fournit notamment une implémentation de l'algorithme AC-1,
+ * utilisable en prétraitement ou au cours d'un algorithme MAC.
+ */
 public class ArcConsistency {
 
     private Set<Constraint> constraints;
 
+    /**
+     * Construit un objet de cohérence d'arc pour un ensemble de contraintes.
+     *
+     * @param constraints l'ensemble des contraintes à utiliser
+     * @throws IllegalArgumentException si au moins une contrainte n'est
+     *         ni unaire ni binaire
+     */
     public ArcConsistency(Set<Constraint> constraints) {
         //Vérifie que toutes les contraintes sont unaires ou binaires
         for (Constraint c : constraints) {
@@ -23,6 +37,16 @@ public class ArcConsistency {
     }
 
 
+    /**
+     * Assure la cohérence de nœud sur un ensemble de domaines.
+     * <p>
+     * Supprime des domaines toutes les valeurs qui ne satisfont pas
+     * au moins une contrainte unaire portant sur la variable.
+     *
+     * @param domains un dictionnaire associant à chaque variable son domaine
+     * @return {@code false} si au moins un domaine est vidé,
+     *         {@code true} sinon
+     */
     public boolean enforceNodeConsistency(Map<Variable, Set<Object>> domains){
         for (Map.Entry<Variable, Set<Object>> entry : domains.entrySet()) {
             Variable variable = entry.getKey();
@@ -60,6 +84,20 @@ public class ArcConsistency {
     }
 
 
+    /**
+     * Applique l'opération de révision sur l'arc (v1, v2).
+     * <p>
+     * Supprime de {@code D1} les valeurs de {@code v1} qui ne sont
+     * supportées par aucune valeur de {@code D2} pour les contraintes
+     * binaires portant sur {@code v1} et {@code v2}.
+     *
+     * @param v1 première variable de la contrainte
+     * @param D1 domaine actuel de {@code v1} (modifié en place)
+     * @param v2 seconde variable de la contrainte
+     * @param D2 domaine actuel de {@code v2} (non modifié)
+     * @return {@code true} si au moins une valeur a été retirée de {@code D1},
+     *         {@code false} sinon
+     */
     public boolean revise(Variable v1, Set<Object> D1, Variable v2, Set<Object> D2){
         boolean delete = false;
 
@@ -104,6 +142,16 @@ public class ArcConsistency {
         return delete;
     }
 
+    /**
+     * Applique l'algorithme AC-1 pour rendre l'ensemble des domaines cohérent d'arc.
+     * <p>
+     * Les domaines sont modifiés en place. Les contraintes unaires sont également
+     * prises en compte au travers de la cohérence de nœud.
+     *
+     * @param domaines les domaines des variables (modifiés en place)
+     * @return false si au moins un domaine est vidé,
+     *         true sinon
+     */
     public boolean ac1(Map<Variable, Set<Object>> domaines){
         if(!enforceNodeConsistency(domaines)){
             return false;

@@ -84,10 +84,10 @@ public class BlocksWorldVariables {
     @Override
     public String toString() {
        
-        String res = " \n BlocksWorld Variables : " + "\n";
-        res+= "\n onVariables : "+onVariables + "\n";
-        res+= "\n fixedVariables : "+fixedVariables + "\n";
-        res+= "\n freeVariables : "+freeVariables + "\n";
+        String res = " \n BlocksWorld Variables : " + " \n";
+        res+= " \n onVariables : "+onVariables + " \n";
+        res+= " \n fixedVariables : "+fixedVariables + " \n";
+        res+= " \n freeVariables : "+freeVariables + " \n";
         
         return res;
     }

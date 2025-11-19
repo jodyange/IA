@@ -12,13 +12,28 @@ import java.util.TreeSet;
 
 import modelling.BooleanVariable;
 
+/**
+ * Implémentation de l'algorithme Apriori pour extraire
+ * les itemsets fréquents dans une base de données booléenne.
+ */
 public class Apriori extends AbstractItemsetMiner{
 
-
+    /**
+     * Crée un extracteur Apriori pour la base donnée.
+     *
+     * @param database base de données utilisée
+     */
     public Apriori(BooleanDatabase database) {
         super(database);
     }
 
+     /**
+     * Extrait tous les itemsets non vides dont la fréquence
+     * atteint au moins la fréquence minimale donnée.
+     *
+     * @param minFrequency fréquence minimale
+     * @return ensemble des itemsets fréquents
+     */
     @Override
     public Set<Itemset> extract(float minFrequency) {
         List<SortedSet<BooleanVariable>> listLenFrequent = new ArrayList<>();
@@ -64,7 +79,13 @@ public class Apriori extends AbstractItemsetMiner{
         return frequentItem;
     }
 
-
+    /**
+     * Renvoie l'ensemble des itemsets de taille 1 dont la fréquence
+     * atteint la fréquence minimale donnée.
+     *
+     * @param minFrequency seuil minimal
+     * @return ensemble des itemsets fréquents de taille 1
+     */
     public Set<Itemset> frequentSingletons(float minFrequency){
         if (!(minFrequency >= 0 && minFrequency <= 1)) {
             throw new IllegalArgumentException("The value of the frequency must be between 0 and 1");
@@ -82,8 +103,15 @@ public class Apriori extends AbstractItemsetMiner{
 
     }
 
-
-
+    /**
+     * Combine deux itemsets triés pour former un candidat
+     * d'itemset de taille supérieure, si les conditions
+     * de compatibilité sont remplies.
+     *
+     * @param items1 premier ensemble trié
+     * @param items2 second ensemble trié
+     * @return ensemble combiné ou null si non combinable
+     */
     public static SortedSet<BooleanVariable> combine(SortedSet<BooleanVariable> item1,
             SortedSet<BooleanVariable> item2) {
         if (item1.size() != 0 && !item1.equals(item2) && item1.size() == item2.size()) {
@@ -112,6 +140,14 @@ public class Apriori extends AbstractItemsetMiner{
         return null;
     }
 
+    /**
+     * Teste si tous les sous-ensembles d'un certain ensemble d'items,
+     * obtenus en retirant un élément, sont fréquents.
+     *
+     * @param items ensemble dont on teste les sous-ensembles
+     * @param frequents collection des itemsets fréquents de taille inférieure
+     * @return vrai si tous les sous-ensembles sont présents
+     */
     public static boolean allSubsetsFrequent(Set<BooleanVariable> item,Collection<SortedSet<BooleanVariable>> itemsCollection) {
         for (BooleanVariable i : item) {
             SortedSet<BooleanVariable> copy = new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
