@@ -110,8 +110,13 @@ public class BFSPlanner implements Planner{
 
         }
         while (!open.isEmpty()) {
+
             Map<Variable, Object> instantiation = open.poll();
+            
+            if (this.activateNodeC) nbNoeuds++;
+
             closed.add(instantiation);
+            
             for(Action act : this.actions){
                 if(act.isApplicable(instantiation)){
                     Map<Variable, Object> next = act.successor(instantiation);
@@ -121,16 +126,14 @@ public class BFSPlanner implements Planner{
 
                         if (this.goals.isSatisfiedBy(next)){
                             return getBfsPlan(father, plan, next);
-                        }else{
+                        } else {
                             open.add(next);
                         }
-
                     }
-
                 }
             }
-            
         }
+
         return null;
     }
 

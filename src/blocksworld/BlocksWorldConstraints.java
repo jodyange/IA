@@ -106,23 +106,4 @@ public class BlocksWorldConstraints extends BlocksWorldVariables {
     public Set<Constraint> getAllConstraints() {
         return constraints;
     }
-
-    @Override
-    public String toString() {
-       
-        String res = super.toString();
-        res += "\n BlocksWorld Constraints: \n" + "\n";
-                       
-        for (Constraint constraint : constraints) {
-            res += constraint + "\n";
-
-        }
-        return res;
-
-    }
-
-    // public static void main(String[] args) {
-    //     BlocksWorldVariables myWorld = new BlocksWorldConstraints(3, 3);
-    //     System.out.println(myWorld);
-    // }
 }

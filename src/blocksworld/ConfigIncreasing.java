@@ -11,7 +11,15 @@ import java.util.*;
  */
 public class ConfigIncreasing extends BlocksWorldConstraints {
 
-
+    /**
+     * Construit un monde des blocs croissant.
+     * 
+     * Les variables et contraintes de base sont d’abord générées par le constructeur parent,
+     * puis les contraintes de croissance sont ajoutées automatiquement.
+     *
+     * @param nbBlocks nombre total de blocs
+     * @param nbPiles nombre total de piles
+     */
     public ConfigIncreasing(int nbBlocks, int nbPiles) {
         super(nbBlocks, nbPiles);
         addIncreasingConstraints();
@@ -24,45 +32,36 @@ public class ConfigIncreasing extends BlocksWorldConstraints {
      *  - ou sur un bloc de numéro strictement plus petit (< b).
      */
     private void addIncreasingConstraints() {
-        // un on_b par bloc b
-        for (int b = 0; b < onVariables.size(); b++) {
+        int n = onVariables.size(); // nombre de blocs
+
+        for (int b = 0; b < n; b++) {
+
             Variable onB = onVariables.get(b);
 
             Set<Object> allowed = new HashSet<>();
-            for (Object v : onB.getDomain()) {
-                int val = (Integer) v;
 
-                // Piles (valeurs négatives) autorisées
-                // ou blocs strictement plus petits
-                if (val < 0 || val < b) {
-                    allowed.add(val);
-                }
+            // Autoriser toutes les piles : -1, -2, ..., -numStacks
+            for (int p = 1; p <= nbPiles; p++) {
+                allowed.add(-p);
             }
 
-            // on_b ∈ allowed
+            // Autoriser tous les blocs plus petits que b : 0, 1, ..., b-1
+            for (int k = 0; k < b; k++) {
+                allowed.add(k);
+            }
+
+            // Ajouter la contrainte unaire : on_b ∈ allowed
             constraints.add(new UnaryConstraint(onB, allowed));
         }
     }
 
     /**
-     * Retourne toutes les contraintes : base + croissance.
+     * Retourne l’ensemble de toutes les contraintes du monde des blocs
+     * incluant celles de base et celles imposant la croissance.
+     *
+     * @return une copie de l’ensemble des contraintes
      */
     public Set<Constraint> getIncreasingConstraints() {
         return new HashSet<>(constraints);
-    }
-
-    @Override
-    public String toString() {
-         String res = "\n ConfigIncreasing : \n" + "\n";
-                       
-        for (Constraint constraint : getIncreasingConstraints()) {
-            res += constraint + "\n";
-        }
-        return res;
-    }
-
-    public static void main(String[] args) {
-        BlocksWorldVariables myWorld = new ConfigIncreasing(2, 2);
-        System.out.println(myWorld);
     }
 }

@@ -9,8 +9,6 @@ public class DifferenceConstraint implements Constraint{
     private Variable v1;
     private Variable v2;
 
-    
-
     public DifferenceConstraint(Variable v1, Variable v2) {
         this.v1 = v1;
         this.v2 = v2;
@@ -32,7 +30,7 @@ public class DifferenceConstraint implements Constraint{
 
 
         if(valueV1 == null || valueV2 == null){
-            throw new IllegalArgumentException("Unimplemented method 'isNotStisfiedBy'");
+            throw new IllegalArgumentException("Vlues aur nill");
         }
 
         if(valueV1.equals(valueV2)){

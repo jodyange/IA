@@ -1,34 +1,38 @@
-Aide à la décision et intelligence artificielle
+Aide à la décision et intelligence artificielle - Rendu CC3
 
 AGBOHOUTO Jody-Ange 22310270
 -Groupe TP 2A
 -Chargé de TP: M BONNET Grégory
 
-
-
-
 Classes éxécutables:
+-modelling.Demo
+-modelling.Test
+
+-planning.Demo
+-planning.Test
+
 -cp.Demo
 -cp.Test
 
 -datamining.Demo
 -datamining.Test
 
-Information sur la compulation et l'execution 
-1- Extraire le fichier 
-2- Se placer dans le dossier src 
-3- Ouvrir un terminal et taper les commandes suivantes :
+-blocksworld.demo.*
 
-# package cp:
-	compilation: javac -d build -cp lib/tests.jar cp/*.java
-    Test: java -cp " ../build:../lib/tests.jar cp.Test
+Information sur la compilation et l'exécution 
 
+Commande pour la compilation: 
+$ javac -d build -cp "lib/blocksworld.jar:lib/bwgenerator.jar:lib/tests.jar" src/*/*.java src/*/*/*.java
 
-# package datamining:
-    compilation: javac -d ../build -cp ../lib/tests.jar datamining/*.java 
-    Test: java -cp ../build:../lib/tests.jar datamining.Test
+Commandes pour éxecuter les tests du package blocksworld:
+java -cp build blocksworld.demo.DemoExo5
+java -cp build blocksworld.demo.DemoExo8
+java -cp build blocksworld.demo.DemoExo9
+java -cp build blocksworld.demo.DemoExo10
+java -cp build:lib/blocksworld.jar:lib/bwgenerator.jar:lib/tests.jar blocksworld.DemoExo12
 
-
+Pour pour éxecuter tout les autres packages:
+java -cp $ java -cp ".:./build:./lib/tests.jar" nomDuPackage.NomDeLaClasse
 
 ----------------------------NOTE----------------------------
 -Placer le fichier .jar des tests dans le repertoire /lib avant la compilation

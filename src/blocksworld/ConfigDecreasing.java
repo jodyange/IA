@@ -37,45 +37,30 @@ public class ConfigDecreasing extends BlocksWorldConstraints {
      *  - ou sur un bloc de numéro strictement plus grand (> b).
      */
     private void addDecreasingConstraints() {
-        // un on_b par bloc b
-        for (int b = 0; b < onVariables.size(); b++) {
+        int n = onVariables.size(); 
+        
+        for (int b = 0; b < n; b++) {
             Variable onB = onVariables.get(b);
-
             Set<Object> allowed = new HashSet<>();
-            for (Object v : onB.getDomain()) {
-                int val = (Integer) v;
 
-                // Piles (valeurs négatives) autorisées
-                // ou blocs strictement plus grands
-                if (val < 0 || val > b) {
-                    allowed.add(val);
-                }
+            for (int p = 1; p <= nbPiles; p++) {
+                allowed.add(-p);
             }
-
-            // on_b ∈ allowed
+            for (int k = b +1; k < n; k++) {
+                allowed.add(k);
+            }
             constraints.add(new UnaryConstraint(onB, allowed));
         }
     }
 
     /**
-     * Retourne toutes les contraintes : base + décroissance.
+     * Retourne l’ensemble de toutes les contraintes du monde des blocs
+     * incluant celles de base et celles imposant la croissance.
+     *
+     * @return une copie de l’ensemble des contraintes
      */
     public Set<Constraint> getDecreasingConstraints() {
         return new HashSet<>(constraints);
     }
 
-    @Override
-    public String toString() {
-        String res = "\n ConfigDecreasing : \n" + "\n";
-                       
-        for (Constraint constraint : getDecreasingConstraints()) {
-            res += constraint + " \n";
-        }
-        return res;
-    }
-
-    public static void main(String[] args) {
-        BlocksWorldVariables myWorld = new ConfigDecreasing(2, 2);
-        System.out.println(myWorld);
-    }
 }

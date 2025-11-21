@@ -6,8 +6,19 @@ import java.util.Set;
 import modelling.UnaryConstraint;
 import modelling.Variable;
 
+/**
+ * Représente un monde des blocs où toutes les configurations sont contraintes
+ * d'utiliser une seule pile.
+ *
+ */
 public class ConfigOnePile extends BlocksWorldConstraints {
 
+    /**
+     * Construit un monde des blocs où une seule pile peut être utilisée.
+     *
+     * @param nbBlocks nombre total de blocs
+     * @param nbPiles nombre total de piles disponibles (ignoré pour la contrainte)
+     */
     public ConfigOnePile(int nbBlocks, int nbPiles) {
         super(nbBlocks, nbPiles);
         addOnePileConstraints();
@@ -30,22 +41,10 @@ public class ConfigOnePile extends BlocksWorldConstraints {
             allowed.add(-1);
 
         // Tous les blocs
-            for (int b = 0; b < n; b++) {
+            for (int b = 0; b < i; b++) {
             allowed.add(b);
         }
-
-            // ajouter contrainte unaire : onVar ∈ allowed
             constraints.add(new UnaryConstraint(onVar, allowed));
         }
-    }
-
-    @Override
-    public String toString() {
-        return "BlocksWorld une seule pile " + onVariables.size() + " blocks";
-    }
-
-    public static void main(String[] args) {
-        BlocksWorldVariables world = new ConfigOnePile(4, 3);
-        System.out.println(world);
     }
 }

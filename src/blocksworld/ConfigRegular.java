@@ -4,6 +4,13 @@ import modelling.*;
 
 import java.util.*;
 
+/**
+ * Représente un monde des blocs où les écarts sont réguliers.
+ *
+ * (1, 3, 5, 7) — écart constant +2
+ * (8, 4, 0) — écart constant -4
+ * 
+ */
 public class ConfigRegular extends BlocksWorldConstraints{
     
 /**
@@ -31,37 +38,40 @@ public class ConfigRegular extends BlocksWorldConstraints{
      *   Implication( on_middle ∈ {bottom}  ->  on_top ∈ domaine(on_top) \ {middle} )
      */
     private void addRegularConstraints() {
-        int nbBlocks = onVariables.size(); // un on_b par bloc b
+       int nbBlocks = onVariables.size(); // un on_b par bloc b
 
-        // On parcourt tous les triples de blocs distincts : bottom, middle, top
         for (int bottom = 0; bottom < nbBlocks; bottom++) {
             for (int middle = 0; middle < nbBlocks; middle++) {
-
                 for (int top = 0; top < nbBlocks; top++) {
 
                     if (bottom == middle || middle == top || bottom == top) {
                         continue;
                     }
 
-                    // Si les écarts NE sont PAS égaux -> triple NON régulier -> on doit l'interdire
+                    // Triple NON régulier -> on jette
                     if (middle - bottom != top - middle) {
 
-                        // on_middle (variable qui dit sur quoi est posé le bloc "middle")
                         Variable onMiddle = onVariables.get(middle);
-
-                        // on_top (variable qui dit sur quoi est posé le bloc "top")
                         Variable onTop = onVariables.get(top);
 
-                        // S1 = { bottom } : on_middle doit être posé sur "bottom"
+                        // { bottom } : on_middle doit être posé sur "bottom"
                         Set<Object> onMiddleValues = new HashSet<>();
                         onMiddleValues.add(bottom);
 
-                        // S2 = domaine de on_top SANS la valeur "middle"
-                        Set<Object> onTopAllowedValues = new HashSet<>(onTop.getDomain());
-                        onTopAllowedValues.remove(middle);
+                        // TOUTES les valeurs possibles SAUF "middle"
+                        Set<Object> onTopAllowedValues = new HashSet<>();
 
-                        // On ajoute l'implication :
-                        // si on_middle = bottom alors on_top != middle
+                        for (int p = 1; p <= nbPiles; p++) {
+                            onTopAllowedValues.add(-p);
+                        }
+
+                        // tous les blocs sauf "middle"
+                        for (int b = 0; b < nbBlocks; b++) {
+                            if (b != middle) {
+                                onTopAllowedValues.add(b);
+                            }
+                        }
+
                         constraints.add(new Implication(onMiddle, onMiddleValues, onTop, onTopAllowedValues)
                         );
                     }
@@ -70,23 +80,12 @@ public class ConfigRegular extends BlocksWorldConstraints{
         }
     }
 
-    @Override
-    public String toString() {
-       
-        String res = super.toString();
-        res += "\n BlocksWorld regular Constraints: \n" + "\n";
-                       
-        for (Constraint constraint : constraints) {
-            res += constraint + "\n";
-
-        }
-        return res;
-
-    }
-
-    public static void main(String[] args) {
-        //BlocksWorldRegularConfig myWorld = new BlocksWorldRegularConfig(5, 3);
-        BlocksWorldVariables myWorld = new ConfigRegular(3, 2);
-        System.out.println(myWorld);
+    /**
+     * Retourne l’ensemble des contraintes du monde régulier 
+     *
+     * @return un ensemble contenant une copie de toutes les contraintes
+     */
+    public Set<Constraint> getRegularConstraints() {
+        return new HashSet<>(constraints);
     }
 }
