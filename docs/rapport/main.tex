@@ -1,0 +1,71 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage[ruled,vlined,french]{algorithm2e}
+\usepackage{graphicx}
+
+\geometry{margin=2.2cm}
+\setstretch{1.15}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+% Pas besoin de maketitle, on personnalise la page de garde directement.
+\begin{document}
+
+% ---------------------- PAGE DE GARDE ----------------------------
+\begin{center}
+    \includegraphics[width=4cm]{figures/logoUNICAEN.png}
+
+    \vspace{1cm} % espace entre logo et titre
+
+    {\LARGE \textbf{Rapport de Projet :}}\\[0.5em]
+    {\LARGE \textbf{Fil Rouge — Blocksworld}}\\[2em]
+
+    \textbf{Université de Caen Normandie}\\
+    Licence 3 Informatique\\[1em]
+    \textbf{Groupe 2A :} Jody-Ange AGBOHOUTO\\[2em]
+    Chargé de TP : M. Grégory BONNET\\[2em]
+    Rendu : 21 Novembre 2025
+\end{center}
+
+\thispagestyle{empty} % Pas de numéro sur la page de garde
+\newpage
+
+% ------------------ Table des matières ------------------------
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents{}
+\newpage
+
+% --------------------- Sections du rapport --------------------
+
+\section{Introduction}
+
+\section{Structure du projet}
+
+\section{Implémentations}
+
+\subsection{Modélisation du problème}
+\subsection{Planification}
+\subsection{Problèmes de satisfaction de contraintes}
+\subsection{IncreasingBlocks}
+\subsection{Extraction de connaissances}
+\subsection{Tests}
+\subsection{Difficultés rencontrées}
+1. J'ai eu du mal à implementer la classe Display, j'avais des pointeurss null execptions \\
+2. Config non-circulaires
+*OnePile, i noticed i couldnt make it non circular without imposing an order
+*Decreasing
+
+\section{Conclusion}
+Durant la réalisation du projet Blocksworld, j’ai été très positivement surpris par l’importance des structures et concepts que nous avions travaillés lors des travaux pratiques. Je me pose souvent la question de l’utilité réelle de ce que l’on apprend en cours, et ce projet a apporté une réponse concrète; tout ce que nous avons acquis en TP a constitué une véritable base pour avancer efficacement sur le développement du Blocksworld.
+
+Dans ce travail, j’ai exploré plusieurs aspects fondamentaux de l'aide à la décision, des contraintes et de la planification dans le cadre du monde des blocs. L’objectif était de modéliser différents types de configurations, d’exprimer des contraintes logiques variées et de développer un ensemble cohérent d’actions permettant de manipuler ces configurations tout en respectant des règles strictes.
+
+Ce devoir m’a permis de mieux comprendre la modélisation par contraintes, la génération systématique d’actions, la résolution de problèmes par recherche et l’importance des heuristiques dans la performance des algorithmes.
+\end{document}
