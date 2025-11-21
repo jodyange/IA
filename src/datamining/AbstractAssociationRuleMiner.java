@@ -32,18 +32,25 @@ public abstract class AbstractAssociationRuleMiner implements AssociationRuleMin
      * des itemsets fréquents fournis.
      *
      * @param items ensemble d'items
-     * @param itemsets itemsets fréquents calculés auparavant
+     * @param itemSet itemsets fréquents calculés auparavant
      * @return fréquence trouvée
      */
-    public static float frequency(Set<BooleanVariable> items, Set<Itemset> itemsets){
-        
-        for (Itemset itemset : itemsets) {
-            if(itemset.getItems().equals(items)){
-                return itemset.getFrequency();
+    public static float frequency(Set<BooleanVariable> items,Set<Itemset> itemSet){
+
+        float f = 0;
+        boolean find = false;
+
+        for (Itemset item : itemSet) {
+            Set<BooleanVariable> it = item.getItems();
+            if( it.size() == items.size() && it.containsAll(items)){
+                f = item.getFrequency();
+                find = true;
             }
         }
-        throw new IllegalArgumentException("Fréquence introuvable pour l'ensemble d'items : " + items);
-        
+        if(!find){
+            throw new IllegalArgumentException("L'ensemble d'items n'est pas présent dans l'ensemble d'ItemSet");
+        }
+        return f;
     }
 
     /**

@@ -18,9 +18,7 @@ public class Test {
         ok = ok && BooleanVariableTests.testConstructor();
         ok = ok && BooleanVariableTests.testEquals();
         ok = ok && BooleanVariableTests.testHashCode();
-        System.out.println(ok ? "All tests OK" : "At least one test KO");
 
-        //boolean ok = true;
         ok = ok && DifferenceConstraintTests.testGetScope();
         ok = ok && DifferenceConstraintTests.testIsSatisfiedBy();
         ok = ok && ImplicationTests.testGetScope();

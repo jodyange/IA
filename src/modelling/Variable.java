@@ -24,8 +24,9 @@ public class Variable {
 
     @Override
     public boolean equals(Object obj) {
+        if(!(obj instanceof Variable)) return false;
         Variable v = (Variable) obj;
-        return name.equals(v.getName());   
+        return Objects.equals(v.getName(),this.getName());  
     }
     
     public String getName() {

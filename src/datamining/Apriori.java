@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -46,7 +45,7 @@ public class Apriori extends AbstractItemsetMiner{
             listLenFrequent.add(item);
 
         }
-        while (listLenFrequent.size() > 1) {
+        while (listLenFrequent.size() > 0) {
             List<SortedSet<BooleanVariable>> candidats = new ArrayList<>();
 
             for(SortedSet<BooleanVariable> item1 : listLenFrequent){
@@ -108,36 +107,24 @@ public class Apriori extends AbstractItemsetMiner{
      * d'itemset de taille supérieure, si les conditions
      * de compatibilité sont remplies.
      *
-     * @param items1 premier ensemble trié
-     * @param items2 second ensemble trié
+     * @param s1 premier ensemble trié
+     * @param s2 second ensemble trié
      * @return ensemble combiné ou null si non combinable
      */
-    public static SortedSet<BooleanVariable> combine(SortedSet<BooleanVariable> item1,
-            SortedSet<BooleanVariable> item2) {
-        if (item1.size() != 0 && !item1.equals(item2) && item1.size() == item2.size()) {
-            int length = item1.size();
-            Iterator<BooleanVariable> iteratorItem1 = item1.iterator();
-            Iterator<BooleanVariable> iteratorItem2 = item2.iterator();
-            boolean sameElements = true;
-            // On vérifie si les deux items ont les mêmes k-1 premiers élément
-            for (int i = 1; i < length; i++) {
-                BooleanVariable v1 = iteratorItem1.next();
-                BooleanVariable v2 = iteratorItem2.next();
-                if (!v1.getName().equals(v2.getName())) {
-                    sameElements = false;
-                    return null;
-                }
-            }
-            // Si oui sont-ils différents sur le dernier élément ?
-            if (sameElements && !item1.last().equals(item2.last())) {
-                SortedSet<BooleanVariable> combinaison = new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
-                combinaison.addAll(item1);
-                combinaison.add(item2.last());
-                return combinaison;
-            }
-            return null;
-        }
-        return null;
+    public static SortedSet<BooleanVariable> combine(SortedSet<BooleanVariable> s1,SortedSet<BooleanVariable> s2){
+
+        if(s1.size() != s2.size()){return null;}
+        if(s1.isEmpty()){return null;}
+        if(s1.last().equals(s2.last())){return null;}
+        //on compare les k-1 premiers éléments des deux listes
+        if(!s1.headSet(s1.last()).equals(s2.headSet(s2.last()))){return null;}
+
+        SortedSet<BooleanVariable> resultat = new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
+
+        resultat.addAll(s1);
+        resultat.add(s2.last());
+
+        return resultat;
     }
 
     /**
